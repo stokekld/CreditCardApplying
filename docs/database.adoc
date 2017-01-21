@@ -1,0 +1,50 @@
+= Base de datos =
+Listado de Tablas
+
+=== Usuario
+
+[cols="3"]
+|===
+|id_usuario
+|Número
+|
+
+|tipo_usuario
+|Número
+|1 - Todo
+2 - Alta de Usuarios/Solo ver
+3 - Solo ver
+
+|jefe_id_usuario
+|Número
+|Id del jefe inmediato
+
+|us_nombre
+|Texto(30)
+|
+
+|us_apat
+|Texto(30)
+|
+
+|us_amat
+|Texto(30)
+|
+
+|us_celular
+|Texto(30)
+|
+
+|us_email
+|Texto(45)
+|
+
+|us_user
+|Texto(15)
+|
+
+|us_pass
+|Texto(35)
+|
+
+|===
