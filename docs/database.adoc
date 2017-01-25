@@ -1,6 +1,29 @@
 = Base de datos =
 Listado de Tablas
 
+=== Tipo usuario
+
+[cols="3"]
+|===
+
+|id_tipo_usuario
+|Número
+|
+
+|tipo_usuario
+|Texto(20)
+|Nombre de tipo de usuario
+
+|nivel
+|Número
+|1: Todo +
+2: Secretaria (Todo) +
+3: Alta de Usuarios/Solo ver +
+4: Secretaria (Alta de Usuarios/Solo ver) +
+5: Solo ver
+
+|===
+
 === Usuario
 
 [cols="3"]
@@ -11,9 +34,7 @@ Listado de Tablas
 
 |tipo_usuario
 |Número
-|1 - Todo
-2 - Alta de Usuarios/Solo ver
-3 - Solo ver
+|Tabla: **Tipo usuario**
 
 |jefe_id_usuario
 |Número
@@ -45,6 +66,333 @@ Listado de Tablas
 
 |us_pass
 |Texto(35)
+|
+
+|===
+
+
+=== Producto
+
+[cols="3"]
+|===
+
+|id_producto 
+|Número
+|
+
+|producto 
+|Texto(40)
+|
+
+|===
+
+
+=== Situacion Agencia
+
+[cols="3"]
+|===
+
+|id_situacionAgen
+|Número
+|
+
+|situacionAgen
+|Texto(60)
+|
+
+|===
+
+
+=== Status Final
+
+[cols="3"]
+|===
+
+|id_statusFinal
+|Número
+|
+
+|statusFinal
+|Texto(30)
+|
+
+|===
+
+=== Universidad
+
+[cols="3"]
+|===
+
+|id_universidad
+|Número
+|
+
+|universidad
+|Texto(100)
+|
+
+|===
+
+
+=== Lugar Apertura
+
+[cols="3"]
+|===
+
+|id_lugarApertura
+|Número
+|
+
+|lugarApertura
+|Texto(80)
+|
+
+|===
+
+
+=== Localidad
+
+[cols="3"]
+|===
+
+|id_localidad
+|Número
+|
+
+|localidad
+|Texto(80)
+|
+
+|===
+
+=== Solicitud
+
+[cols="3"]
+|===
+
+|id_solicitud
+|Número
+|
+
+|id_usuario
+|Número
+|Tabla: **Usuario**
+
+|id_producto
+|Número
+|Tabla: **Producto**
+
+|folio
+|Texto(30)
+|
+
+|sol_nombre
+|Texto(30)
+|Nombre del solicitante
+
+|sol_apat
+|Texto(30)
+|Apellido paterno del solicitante
+
+|sol_amat
+|Texto(30)
+|Apellido materno del solicitante
+
+|lada
+|Texto(10)
+|
+
+|telefono
+|Texto(20)
+|
+
+|email
+|Texto(50)
+|
+
+|id_lugarApertura
+|Número
+|Tabla: **Lugar de Apertura** +
+**Pendiente**
+
+|id_localidad
+|Número
+|Tabla: **Localidad** +
+**pendiente**
+
+|dictamen
+|Enumerado
+|APROBADO +
+APROBADO PRECLAS +
+PREAPROBADO +
+DECLINADO +
+RECHAZADO
+
+|semaforo
+|Enumerado
+|S/N +
+ROJO +
+VERDE +
+AMBAR +
+AMARILLO +
+AZUL
+
+|fechaCaptura
+|Fecha
+|
+
+|fechaDecision
+|Fecha
+|
+
+|id_situacionAgen
+|Número
+|Tabla: **Situación Agencia**
+
+|situacionSol
+|Enumerado
+|EN PROCESO AGENCIA +
+EN PROCESO BANCO +
+NO RECHAZADO +
+RECHAZADO
+
+|id_statusFinal
+|Número
+|Tabla: **Estatus Final**
+
+|causaRechazo
+|Texto(80)
+|No se puede hacer catálogo
+
+|fechaCarga
+|Fecha
+|
+
+|fechaVigencia
+|Fecha
+|
+
+|cuestionario
+|Enumerado
+|SI +
+NO +
+NO NECESITA
+
+|tokenEfi
+|Texto(20)
+|
+
+|formalizada
+|Enumerado
+|SI +
+NO
+
+|fechaFormal
+|Fecha
+|
+
+|id_universidad
+|Número
+|Tabla: **Universidad**
+
+|codigoCliente
+|Texto(20)
+|
+
+|puntoVenta
+|Texto(60)
+|No se puede hacer catálogo
+
+|observacion
+|Texto
+|
+
+|===
+
+
+=== Referencia
+
+[cols="3"]
+|===
+
+|id_referencia
+|Número
+|
+
+|id_solicitud
+|Número
+|Tabla: **Solicitud**
+
+|ref_nombre
+|Texto(30)
+|Nombre de la referencia
+
+|ref_apat
+|Texto(30)
+|Nombre de la referencia
+
+|ref_amat
+|Texto(30)
+|Apellido paterno de la referencia
+
+|ref_telCasa
+|Texto(30)
+|Apellido materno de la referencia
+
+|ref_telOp
+|Texto(30)
+|
+
+|===
+
+
+
+=== Zero
+
+[cols="3"]
+|===
+
+|id_zero
+|Número
+|
+
+|id_solicitud
+|Número
+|Tabla: **Solicitud**
+
+|universidad
+|Texto(45)
+|
+
+|campus
+|Texto(45)
+|
+
+|carrera
+|Texto(45)
+|
+
+|colegiatura
+|Número(Float)
+|
+
+|financiamiento
+|Enumerado
+|BECA +
+CRÉDITO +
+SIN BECA +
+SIN CRÉDITO
+
+|ingresoFam
+|Número(Float)
+|
+
+|procentajeBeca
+|Número(Float)
+|
+
+|gradoEsc
+|Texto(45)
 |
 
 |===
