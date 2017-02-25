@@ -1,10 +1,40 @@
 from rest_framework.views import APIView
-from rest_framework.response import Response
-from django.http import JsonResponse
+from app.response import Response
 from rest_framework import status
-# Create your views here.
+
+from .models import Usuario
+from .serializers import UsuarioSerializer
 
 class UsuarioViews(APIView):
     def get(self, request):
-        # return Response({'hola':'mundo'})
-        return JsonResponse({'status':status.HTTP_204_NO_CONTENT})
+        return Response()
+
+    def post(self, request):
+        print request.data
+        return Response(data={'hola': 1}, status=400)
+
+# class UsuarioAuth(APIView):
+class UsuarioAuth(APIView):
+
+    serializer = UsuarioSerializer
+    def dict(self, data):
+
+        newDict = {}
+
+        for key in data:
+            newDict[ UsuarioSerializer().get_fields()[ key ].source ] = data[key]
+
+        return newDict
+
+    def post(self, request):
+
+        # print request.data
+
+        query = self.dict(request.data)
+
+        usuario = Usuario.objects.get(**query);
+
+        print usuario
+
+        return Response(data={'hola': 1}, status=400)
+

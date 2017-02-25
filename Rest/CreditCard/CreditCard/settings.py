@@ -25,7 +25,7 @@ SECRET_KEY = 's99@a0i#=uy-qtpb-l--&e!3)uj^w$nbqyw78(4%zr5%g0!8cc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,6 +49,8 @@ MIDDLEWARE = [
     # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     # 'django.contrib.messages.middleware.MessageMiddleware',
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'app.middlewares.request.Request',
+    'app.middlewares.ajax.Ajax',
 ]
 
 ROOT_URLCONF = 'CreditCard.urls'

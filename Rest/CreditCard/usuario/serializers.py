@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import TipoUsuario
-from .models import Usuario
+from .models import TipoUsuario, Usuario
 
 class TipoUsuarioSerializer(serializers.Serializer):
 
