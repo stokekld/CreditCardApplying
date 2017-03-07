@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from app.response import Response
 from app.tools import translate
 from app.token import Token
+from app.request import Request
 from rest_framework import status
 
 from .models import Usuario
@@ -13,7 +14,6 @@ class UsuarioViews(APIView):
         return Response()
 
     def post(self, request):
-        print request.data
         return Response(data={'hola': 1}, status=400)
 
 # class UsuarioAuth(APIView):
@@ -22,16 +22,20 @@ class UsuarioAuth(APIView):
     def post(self, request):
 
         try:
-            query = translate(UsuarioSerializer, request.data)
+            query = translate(UsuarioSerializer, Request(request).data)
         except KeyError:
             return Response({}, status.HTTP_400_BAD_REQUEST, "Envio erroneo de parametros")
 
         try:
-            usuario = Usuario.objects.get(**query);
+            usuarios = Usuario.objects.filter(**query)
+
+            if usuarios.count() is not 1:
+                raise ObjectDoesNotExist
+
         except ObjectDoesNotExist:
             return Response({}, status.HTTP_404_NOT_FOUND, "No se encontro el usuario")
 
-        Token().getToken(usuario)
+        token = Token.getToken(UsuarioSerializer(usuarios[0]).data)
 
-        return Response(data={'hola': 1}, status=400)
+        return Response({'token': token})
 

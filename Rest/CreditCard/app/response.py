@@ -1,4 +1,4 @@
-from rest_framework.response import Response as RFResponse
+from rest_framework.response import Response as djangoResponse
 from rest_framework import status
 
 class Response(object):
@@ -7,13 +7,13 @@ class Response(object):
 
         def __init__(self, data, status, error):
 
-            self.data = data
-            self.error = error
             self.status = status
+            if data: self.data = data
+            if error: self.error = error
 
-    def __new__(self, data = {}, status=status.HTTP_200_OK, error=""):
+    def __new__(self, data = {}, status=status.HTTP_200_OK, error=None):
 
         response = self.Inner(data, status, error)
 
-        return RFResponse(response.__dict__, status=response.status)
+        return djangoResponse(response.__dict__, status=response.status)
 
