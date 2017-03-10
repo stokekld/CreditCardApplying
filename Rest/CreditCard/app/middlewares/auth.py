@@ -38,7 +38,7 @@ class Auth(object):
     def isUrlAuth(self, url):
 
         urls = [
-            '/usuarios/auth'
+            '/usuarios/auth/'
         ]
 
         if url in urls:

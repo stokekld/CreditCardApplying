@@ -1,4 +1,6 @@
-from rest_framework.views import APIView
+# from rest_framework.views import APIView
+from rest_framework import viewsets
+from rest_framework.decorators import detail_route, list_route
 from django.core.exceptions import ObjectDoesNotExist
 from app.response import Response
 from app.tools import translate
@@ -9,18 +11,13 @@ from rest_framework import status
 from .models import Usuario
 from .serializers import UsuarioSerializer
 
-class UsuarioViews(APIView):
-    def get(self, request):
+class UsuarioViewSet(viewsets.ViewSet):
+
+    def list(self, request):
         return Response()
 
-    def post(self, request):
-        return Response(data={'hola': 1}, status=400)
-
-# class UsuarioAuth(APIView):
-class UsuarioAuth(APIView):
-
-    def post(self, request):
-
+    @list_route(methods=['post'])
+    def auth(self, request):
         try:
             query = translate(UsuarioSerializer, Request(request).data)
         except KeyError:
@@ -38,4 +35,5 @@ class UsuarioAuth(APIView):
         token = Token.getToken(UsuarioSerializer(usuarios[0]).data)
 
         return Response({'token': token})
+
 
