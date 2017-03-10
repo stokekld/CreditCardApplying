@@ -2,6 +2,13 @@ from rest_framework.response import Response as djangoResponse
 from rest_framework import status
 
 class Response(object):
+    """Clase para formatear el Response de la aplicacion
+
+    Args:
+        data (dict): Diccionario para el response
+        status (int): Status http del response
+        error (str): Mensaje de error del response
+    """
 
     class Inner:
 

@@ -1,13 +1,21 @@
 import json
 
 class Request(object):
+    """Clase para obtener datos del request de django
 
-    data = None
+    Args:
+        request (Request): Es un objeto de la clase Request de django
+    """
 
     def __init__(self, request):
-        self.data = self.getData(request)
+        self.__request = request
 
-    def getData(self, request):
+    @property
+    def data(self):
+        """dict: Metodo para obtener los datos dependiendo del metodo del request"""
+
+        request = self.__request
+
         if request.method == 'POST':
             return json.loads(request.body)
         elif request.method == 'GET':

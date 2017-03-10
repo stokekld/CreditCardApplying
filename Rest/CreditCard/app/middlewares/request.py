@@ -3,6 +3,7 @@ from rest_framework import status
 from app.request import Request as appRequest
 
 class Request(object):
+    "Middleware para validar el buen formato del request"
     def __init__(self, get_response):
         self.get_response = get_response
 

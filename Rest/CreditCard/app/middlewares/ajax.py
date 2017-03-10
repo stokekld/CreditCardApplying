@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from rest_framework import status
 
 class Ajax(object):
+    "Middleware para validar que el request sea Ajax"
     def __init__(self, get_response):
         self.get_response = get_response
 
