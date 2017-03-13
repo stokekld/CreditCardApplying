@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from rest_framework import status
 from app.token import Token
+from app.url import Urls
 
 import json
 
@@ -11,7 +12,8 @@ class Auth(object):
 
     def __call__(self, request):
 
-        isurlauth = self.isUrlAuth(request.path_info)
+        # isurlauth = self.isUrlAuth(request.path_info)
+        isurlauth = Urls(request.path_info).isSafe
 
         if not isurlauth:
             try:
@@ -35,13 +37,4 @@ class Auth(object):
 
         return response
 
-    def isUrlAuth(self, url):
 
-        urls = [
-            '/usuarios/auth/'
-        ]
-
-        if url in urls:
-            return True
-
-        return False

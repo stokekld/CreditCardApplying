@@ -1,7 +1,7 @@
-# from rest_framework.views import APIView
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route, list_route
+from rest_framework.decorators import list_route
 from django.core.exceptions import ObjectDoesNotExist
+
 from app.response import Response
 from app.tools import translate
 from app.token import Token
@@ -12,9 +12,6 @@ from .models import Usuario
 from .serializers import UsuarioSerializer
 
 class UsuarioViewSet(viewsets.ViewSet):
-
-    def list(self, request):
-        return Response()
 
     @list_route(methods=['post'])
     def auth(self, request):

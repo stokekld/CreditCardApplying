@@ -54,6 +54,15 @@ MIDDLEWARE = [
     'app.middlewares.auth.Auth',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'app.permissions.PermissionLevel',
+    )
+}
+
+
+
+
 ROOT_URLCONF = 'CreditCard.urls'
 
 TEMPLATES = [

@@ -21,7 +21,6 @@ class Token(object):
         """Propiedad para validar si el token ha expirado"""
         try:
             self.__data = jwt.decode(self.__token, settings.SECRET_KEY, algorithm='HS256')
-            print self.__data
             return True
         except (DecodeError, ExpiredSignatureError) as e:
             return False
@@ -49,6 +48,7 @@ class Token(object):
         """
         token = jwt.encode({
             'user': user['user'],
+            'tipo_usuario': user['tipo_usuario'],
             'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=secsExpired),
             'iat': datetime.datetime.utcnow()
         }, settings.SECRET_KEY, algorithm='HS256')
