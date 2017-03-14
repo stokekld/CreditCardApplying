@@ -13,11 +13,7 @@ class TipoUsuarioSerializer(serializers.Serializer):
 class UsuarioSerializer(serializers.Serializer):
 
     id = serializers.IntegerField(source='id_usuario', read_only=True)
-    # id_tipo_usuario = models.ForeignKey(TipoUsuario, models.DO_NOTHING, db_column='id_tipo_usuario')
-    # tipo_usuario = serializers.IntegerField(source='id_tipo_usuario')
     tipo_usuario = serializers.PrimaryKeyRelatedField(source='id_tipo_usuario', queryset=TipoUsuario.objects.all())
-    # jefe_id_usuario = models.ForeignKey('self', models.DO_NOTHING, db_column='jefe_id_usuario')
-    # jefe = serializers.IntegerField(source='jefe_id_usuario')
     jefe = serializers.PrimaryKeyRelatedField(source='jefe_id_usuario', queryset=Usuario.objects.all())
     nombre = serializers.CharField(source='us_nombre', max_length=30)
     apaterno = serializers.CharField(source='us_apat', max_length=30)
