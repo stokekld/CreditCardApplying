@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Producto, Situacionagen, Lugarapertura, Localidad, Statusfinal, Universidad
+from .models import Producto, Situacionagen, Lugarapertura, Localidad, Statusfinal, Universidad, Causarechazo
 
 class ProductoSerializer(serializers.Serializer):
     id = serializers.IntegerField(source='id_producto', read_only=True)
@@ -25,4 +25,6 @@ class UniversidadSerializer(serializers.Serializer):
     id = serializers.IntegerField(source='id_universidad', read_only=True)
     universidad = serializers.CharField(max_length=100)
 
-
+class CausarechazoSerializer(serializers.Serializer):
+    id = serializers.IntegerField(source='id_causarechazo', read_only=True)
+    causarechazo = serializers.CharField(max_length=100)

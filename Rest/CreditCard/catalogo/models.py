@@ -50,4 +50,10 @@ class Universidad(models.Model):
         managed = False
         db_table = 'universidad'
 
+class Causarechazo(models.Model):
+    id_causarechazo = models.AutoField(db_column='id_causaRechazo', primary_key=True)  # Field name made lowercase.
+    causarechazo = models.CharField(db_column='causaRechazo', max_length=70)  # Field name made lowercase.
 
+    class Meta:
+        managed = False
+        db_table = 'causaRechazo'

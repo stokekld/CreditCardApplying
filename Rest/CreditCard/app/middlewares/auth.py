@@ -12,7 +12,6 @@ class Auth(object):
 
     def __call__(self, request):
 
-        # isurlauth = self.isUrlAuth(request.path_info)
         isurlauth = Urls(request.path_info).isSafe
 
         if not isurlauth:
@@ -29,10 +28,7 @@ class Auth(object):
         if not isurlauth:
             if token.refresh:
                 data = response.data
-                if 'data' in data:
-                    data['data']['token'] = token.new
-                else: 
-                    data['data'] = {'token': token.new}
+                data['token'] = token.new
                 return JsonResponse(data, status=response.status_code)
 
         return response
