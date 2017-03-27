@@ -4,3 +4,4 @@ Rest/env
 Rest/CreditCard/CreditCard/.mysql.conf
 *.swp
 *.pdf
+Webapp/node_modules
