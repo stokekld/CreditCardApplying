@@ -9,15 +9,14 @@ import {
 import Login from './Login.jsx';
 import Solicitud from './Solicitud.jsx';
 
-function Routing() {
-    return (
+
+const Routing = () => (
 	<Router basename="/creditcard">
 	    <Switch>
 		<Route exact path="/" component={Login}/>
 		<Route path="/solicitud" component={Solicitud}/>
 	    </Switch>
 	</Router>
-    );
-}
+)
 
 export default Routing;
