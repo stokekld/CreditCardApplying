@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
 import validator from 'validator';
+import classNames from 'classnames';
 
 class Input extends Component {
     constructor(props){
 	super(props);
-	
+
 	this.state = {
-	    inputProps: this.cleanProps(this.props),
 	    validation: true,
 	    value: this.props.value || ''
 	};
@@ -16,62 +16,48 @@ class Input extends Component {
 
     }
 
-    cleanProps(properties){
-
-	const iP = Object.assign({}, this.props);
-	delete iP.validation;
-	return iP;
-
-    }
-
     validation(value){
-	console.log(this.state.value);
 	const validations = this.props.validation.split(",");
 	const results = [];
 	
 	for (const index in validations){
-	    const val  = validator[validations[index]](this.state.value);
+	    const val  = validator[validations[index]](value);
 	    results.push((validations[index] != 'isEmpty') ? val : !val);
-
-	    this.setState({
-		validation: !results.includes(false)
-	    });
 	}
+
+	this.setState({
+	    validation: !results.includes(false)
+	});
     }
 
-    componentDidMount() {
-	this.validation();
+    componentDidMount(){
+	this.validation(this.state.value);
     }
 
     handleChange(event){
+	this.validation(event.target.value);
+
 	this.setState({
 	    value: event.target.value
 	});
-
-	this.validation();
     }
 
     render(){
+	const rest = Object.assign({}, this.props);
+	delete rest.validation;
+
+	const classesGroup = classNames({
+	    'form-group': true,
+	    'has-error': !this.state.validation
+	});
+
 	return (
-	    <input {...this.state.inputProps} onChange={this.handleChange} data-eval={this.state.validation}/>
+	    <div className={classesGroup}>
+		<label htmlFor={this.props.id}>{this.props.placeholder}</label>
+		<input {...rest} value={this.state.value} onChange={this.handleChange} data-validation={this.state.validation}/>
+	    </div>
 	);
     }
 }
 
 export default Input;
-    //handleChange(event){
-	//console.log(event.target.value);
-	//console.log(this.props.validation);
-	//console.log(validator[this.props.validation](event.target.value));
-
-	//const validations = this.props.validation.split(",");
-
-	//for (const index in validations){
-	    //const validation = validations[ index ]
-
-	    //if ( validation is 'isEmpty' )
-
-	    //console.log(validator[validation](event.target.value));
-	    //console.log(validations[ validation ]);
-	//}
-	//this.handleChange = this.handleChange.bind(this);

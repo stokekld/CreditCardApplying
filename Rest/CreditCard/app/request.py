@@ -15,6 +15,8 @@ class Request(object):
         """dict: Metodo para obtener los datos dependiendo del metodo del request"""
 
         request = self.__request
+        print "hola"
+        print request.body
 
         if request.method == 'POST':
             return json.loads(request.body)

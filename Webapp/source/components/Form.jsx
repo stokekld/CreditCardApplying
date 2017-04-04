@@ -1,36 +1,53 @@
 import React, { Component, cloneElement } from 'react';
+import serialize from 'form-serialize';
+
+import CreditApi from '../utils/Request.js';
 
 class Form extends Component {
     constructor(props){
 	super(props);
 
-	//this.handleChange = this.handleChange.bind(this);
+	this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    setProps(component){
+    componentDidMount(){
+	this.condition();
+    }
 
-	//if ( component.type.name == "Input" )
-	    //return cloneElement(component, {
-		//onChange: this.handleChange,
-	//})
-	console.log(component);
+    condition(){
+	this.props.children.map((child) => console.log(child));
+    }
 
-	return component;
+    handleSubmit(event){
+	event.preventDefault();
+
+	const formData = serialize(event.target);
+
+	const request = new CreditApi();
+	const data = request.getData(this.props.endPoint, formData, this.props.method);
+	//this.setState({
+	    //response: data.response
+	//});
+	this.props.data = data.response
 
     }
 
     render(){
 	return(
-	    <div>
-		{ this.props.children.map(( child, index ) => (
-		    <div key={index}>
-			{ this.setProps(child) }
-		    </div>
-		)) }
-	    </div>
+	    <form onSubmit={this.handleSubmit}>
+		<div>
+		    {this.props.children}
+		</div>
+		<button type="submit" className="btn btn-default">Submit</button>
+	    </form>
 	);
     }
 
 }
 
 export default Form;
+		//{ this.props.children.map(( child, index ) => (
+		    //<div key={index}>
+			//{ this.setProps(child) }
+		    //</div>
+		//)) }
