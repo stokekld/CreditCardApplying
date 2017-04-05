@@ -2,6 +2,7 @@ import React, { Component, cloneElement } from 'react';
 import serialize from 'form-serialize';
 
 import CreditApi from '../utils/Request.js';
+import Input from './Input.jsx';
 
 class Form extends Component {
     constructor(props){
@@ -10,33 +11,41 @@ class Form extends Component {
 	this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount(){
-	this.condition();
-    }
-
-    condition(){
-	this.props.children.map((child) => console.log(child));
-    }
-
     handleSubmit(event){
 	event.preventDefault();
 
-	const formData = serialize(event.target);
+	const arreglo = [];
 
-	const request = new CreditApi();
-	const data = request.getData(this.props.endPoint, formData, this.props.method);
-	//this.setState({
-	    //response: data.response
-	//});
-	this.props.data = data.response
+	for (const key in this.refs)
+	    arreglo.push(this.refs[key].state.validation);
+
+	const validation = !arreglo.includes(false);
+	
+	if (validation){
+	    const formData = serialize(event.target);
+
+	    const request = new CreditApi();
+	    const data = request.getData(this.props.endPoint, formData, this.props.method);
+
+	}
 
     }
 
     render(){
+
+	const hijos = this.props.children.map((child, index) => {
+	    if (child.type === Input)
+		return (
+		    <Input {...child.props} key={index} ref={child.props.id}/>
+		);
+
+	    return child;
+	});
+
 	return(
 	    <form onSubmit={this.handleSubmit}>
 		<div>
-		    {this.props.children}
+		    {hijos}
 		</div>
 		<button type="submit" className="btn btn-default">Submit</button>
 	    </form>
