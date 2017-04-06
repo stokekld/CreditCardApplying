@@ -7,10 +7,6 @@ import Form from '../components/Form.jsx';
 class Login extends Component {
     constructor(props){
 	super(props);
-
-	this.state = {
-	    data: {}
-	};
     }
 
     componentDidUpdate(){
@@ -21,12 +17,11 @@ class Login extends Component {
 	return (
 	    <div className="row">
 		<div className="col-md-4 col-md-offset-4">
-		    <Form endPoint="usuarios/auth/" method="POST" data={this.state.data}>
+		    <Form endPoint="usuarios/auth/" method="POST">
 			<Input
 			    placeholder="Usuario"
 			    type='text'
 			    className='form-control'
-			    value='hola'
 			    id='inputUser'
 			    name="user"
 			    validation='isEmpty,isAlpha'
@@ -35,7 +30,6 @@ class Login extends Component {
 			    placeholder="Password"
 			    type='password'
 			    className='form-control'
-			    value=''
 			    id='inputPass'
 			    name="password"
 			    validation='isEmpty'

@@ -1,9 +1,11 @@
 import fetch from 'isomorphic-fetch';
+import ToastMsg from './Toast.js';
 
 class CreditApi{
 
     constructor(){
 	this.baseUrl = 'http://localhost:8000/';
+	this.toast = new ToastMsg();
     }
 
     async getData(resource, body, method='GET'){
@@ -32,6 +34,7 @@ class CreditApi{
 	.catch((error) => {
 	    data.error = true;
 	    data.errorBody = error;
+	    this.toast.showToast('Servicio no disponible');
 	});
 
 	return data;

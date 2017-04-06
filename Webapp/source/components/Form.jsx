@@ -1,31 +1,36 @@
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
 import serialize from 'form-serialize';
 
 import CreditApi from '../utils/Request.js';
 import Input from './Input.jsx';
+import ToastMsg from '../utils/Toast.js';
+
 
 class Form extends Component {
     constructor(props){
 	super(props);
 
+	this.toast = new ToastMsg();
+
 	this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event){
+    async handleSubmit(event){
 	event.preventDefault();
 
-	const arreglo = [];
+	const evals = [];
 
 	for (const key in this.refs)
-	    arreglo.push(this.refs[key].state.validation);
+	    evals.push(this.refs[key].state.validation);
 
-	const validation = !arreglo.includes(false);
+	const validation = !evals.includes(false);
 	
 	if (validation){
 	    const formData = serialize(event.target);
 
 	    const request = new CreditApi();
-	    const data = request.getData(this.props.endPoint, formData, this.props.method);
+	    const data = await request.getData(this.props.endPoint, formData, this.props.method);
+
 
 	}
 
@@ -55,8 +60,3 @@ class Form extends Component {
 }
 
 export default Form;
-		//{ this.props.children.map(( child, index ) => (
-		    //<div key={index}>
-			//{ this.setProps(child) }
-		    //</div>
-		//)) }
