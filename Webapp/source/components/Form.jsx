@@ -10,6 +10,10 @@ class Form extends Component {
     constructor(props){
 	super(props);
 
+	this.state = {
+	    success: false
+	};
+
 	this.toast = new ToastMsg();
 
 	this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,12 +30,17 @@ class Form extends Component {
 	const validation = !evals.includes(false);
 	
 	if (validation){
-	    const formData = serialize(event.target);
+	    const formData = serialize(event.target, { hash: true });
 
 	    const request = new CreditApi();
 	    const data = await request.getData(this.props.endPoint, formData, this.props.method);
 
+	    if (data.error){
+		this.setState({success: false});
+		return
+	    }
 
+	    this.props.trigger(data.response, data.status, this.toast);
 	}
 
     }
@@ -48,7 +57,7 @@ class Form extends Component {
 	});
 
 	return(
-	    <form onSubmit={this.handleSubmit}>
+	    <form onSubmit={this.handleSubmit} autoComplete="off">
 		<div>
 		    {hijos}
 		</div>

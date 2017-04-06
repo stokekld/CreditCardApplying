@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from django.core.exceptions import ObjectDoesNotExist
+import hashlib
 
 from app.response import Response
 from app.tools import translate
@@ -16,7 +17,9 @@ class UsuarioViewSet(viewsets.ViewSet):
     @list_route(methods=['post'])
     def auth(self, request):
         try:
-            query = translate(UsuarioSerializer, Request(request).data)
+            credentials = Request(request).data
+            credentials["password"] = hashlib.md5(credentials["password"]).hexdigest()
+            query = translate(UsuarioSerializer, credentials)
         except KeyError:
             return Response({}, status.HTTP_400_BAD_REQUEST, "Envio erroneo de parametros")
 

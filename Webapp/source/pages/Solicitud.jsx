@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
+import Form from '../components/Form.jsx';
+import Input from '../components/Input.jsx';
 
 class Solicitud extends Component {
     render(){
 	return (
-	    <section>
-		<h1>Solicitud</h1>
-	    </section>
 	);
     }
 }
 
-export default Solicitud
+export default Solicitud;
