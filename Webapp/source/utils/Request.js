@@ -4,7 +4,7 @@ import ToastMsg from './Toast.js';
 class CreditApi{
 
     constructor(){
-	this.baseUrl = 'http://localhost:8000/';
+	this.baseUrl = 'http://132.248.161.7:8000/';
 	this.toast = new ToastMsg();
     }
 

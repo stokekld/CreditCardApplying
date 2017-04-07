@@ -31,11 +31,13 @@ class Input extends Component {
     }
 
     componentDidMount(){
-	this.validation(this.state.value);
+	if (typeof this.props.validation !== 'undefined')
+	    this.validation(this.state.value);
     }
 
     handleChange(event){
-	this.validation(event.target.value);
+	if (typeof this.props.validation !== 'undefined')
+	    this.validation(event.target.value);
 
 	this.setState({
 	    value: event.target.value

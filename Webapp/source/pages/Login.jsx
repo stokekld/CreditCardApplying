@@ -15,8 +15,8 @@ class Login extends Component {
 	    toast.showToast('No se ha encontrado el usuario');
 	else if (status == 200){
 	    toast.showToast('Bienvenido');
+	    window.sessionStorage.removeItem('token');
 	    window.sessionStorage.setItem('token', response.data.token);
-	    
 	    setTimeout(() => window.location.replace('solicitud'), 3000);
 	}
 
@@ -27,22 +27,9 @@ class Login extends Component {
 	    <div className="row">
 		<div className="col-md-4 col-md-offset-4">
 		    <Form endPoint="usuarios/auth/" method="POST" trigger={this.triggerSubmit}>
-			<Input
-			    placeholder="Usuario"
-			    type='text'
-			    className='form-control'
-			    id='inputUser'
-			    name="user"
-			    validation='isEmpty,isAlpha'
-			/>
-			<Input
-			    placeholder="Password"
-			    type='password'
-			    className='form-control'
-			    id='inputPass'
-			    name="password"
-			    validation='isEmpty'
-			/>
+			<Input placeholder="Usuario" type='text' className='form-control' ref='inputUser' name="user" validation='isEmpty,isAlpha' />
+			<Input placeholder="Password" type='password' className='form-control' ref='inputPass' name="password" validation='isEmpty' />
+			<button type="submit" className="btn btn-default">Submit</button>
 		    </Form>
 		</div>
 	    </div>

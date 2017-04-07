@@ -46,22 +46,11 @@ class Form extends Component {
     }
 
     render(){
-
-	const hijos = this.props.children.map((child, index) => {
-	    if (child.type === Input)
-		return (
-		    <Input {...child.props} key={index} ref={child.props.id}/>
-		);
-
-	    return child;
-	});
-
 	return(
 	    <form onSubmit={this.handleSubmit} autoComplete="off">
 		<div>
-		    {hijos}
+		    {this.props.children}
 		</div>
-		<button type="submit" className="btn btn-default">Submit</button>
 	    </form>
 	);
     }
