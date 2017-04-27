@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM, { findDOMNode } from 'react-dom';
 import serialize from 'form-serialize';
 
 import CreditApi from '../utils/Request.js';
@@ -10,35 +11,33 @@ class Form extends Component {
     constructor(props){
 	super(props);
 
-	this.state = {
-	    success: false
-	};
-
 	this.toast = new ToastMsg();
+	this.request = new CreditApi();
 
 	this.handleSubmit = this.handleSubmit.bind(this);
+
+    }
+
+    formValidation(){
+	const evals = [];
+	const inputs = findDOMNode(this).getElementsByTagName("input");
+
+	for (let index = 0; index < inputs.length; index++)
+	    evals.push(inputs[index].dataset.validation == 'true');
+	
+	return !evals.includes(false);
     }
 
     async handleSubmit(event){
 	event.preventDefault();
 
-	const evals = [];
-
-	for (const key in this.refs)
-	    evals.push(this.refs[key].state.validation);
-
-	const validation = !evals.includes(false);
-	
-	if (validation){
+	if (this.formValidation()){
 	    const formData = serialize(event.target, { hash: true });
 
-	    const request = new CreditApi();
-	    const data = await request.getData(this.props.endPoint, formData, this.props.method);
+	    const data = await this.request.getData(this.props.endPoint, formData, this.props.method);
 
-	    if (data.error){
-		this.setState({success: false});
-		return
-	    }
+	    if (data.error)
+		return;
 
 	    this.props.trigger(data.response, data.status, this.toast);
 	}

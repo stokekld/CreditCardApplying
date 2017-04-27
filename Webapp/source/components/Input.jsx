@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import validator from 'validator';
 import classNames from 'classnames';
+import Validation from '../utils/Validation.js';
 
 class Input extends Component {
     constructor(props){
@@ -12,34 +12,20 @@ class Input extends Component {
 	    value: this.props.value || ''
 	};
 
+	this.validation = new Validation(this.props.validation || '');
+
 	this.handleChange = this.handleChange.bind(this);
-
-    }
-
-    validation(value){
-	const validations = this.props.validation.split(",");
-	const results = [];
-	
-	for (const index in validations){
-	    const val  = validator[validations[index]](value);
-	    results.push((validations[index] != 'isEmpty') ? val : !val);
-	}
-
-	this.setState({
-	    validation: !results.includes(false)
-	});
     }
 
     componentDidMount(){
-	if (typeof this.props.validation !== 'undefined')
-	    this.validation(this.state.value);
+	this.setState({
+	    validation: this.validation.validate(this.state.value)
+	});
     }
 
     handleChange(event){
-	if (typeof this.props.validation !== 'undefined')
-	    this.validation(event.target.value);
-
 	this.setState({
+	    validation: this.validation.validate(event.target.value),
 	    value: event.target.value
 	});
     }
@@ -55,8 +41,7 @@ class Input extends Component {
 
 	return (
 	    <div className={classesGroup}>
-		<label htmlFor={this.props.id}>{this.props.placeholder}</label>
-		<input {...rest} value={this.state.value} onChange={this.handleChange} data-validation={this.state.validation}/>
+		<input {...rest} className='form-control' value={this.state.value} onChange={this.handleChange} data-validation={this.state.validation}/>
 	    </div>
 	);
     }

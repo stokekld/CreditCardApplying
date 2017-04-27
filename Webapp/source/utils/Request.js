@@ -4,7 +4,8 @@ import ToastMsg from './Toast.js';
 class CreditApi{
 
     constructor(){
-	this.baseUrl = 'http://132.248.161.7:8000/';
+	//this.baseUrl = 'http://132.248.161.7:8000/';
+	this.baseUrl = 'http://localhost:8000/';
 	this.toast = new ToastMsg();
     }
 
@@ -20,7 +21,8 @@ class CreditApi{
 	    method: method,
 	    headers: {
 		'X-Requested-With': "XMLHttpRequest",
-		'Content-Type': "application/json"
+		'Content-Type': "application/json",
+		'Authorization': sessionStorage.getItem('token') || ''
 	    },
 	    body: JSON.stringify(body)
 	})
@@ -30,6 +32,9 @@ class CreditApi{
 	})
 	.then((body) => {
 	    data.response = body;
+
+	    if (body.token)
+		sessionStorage.setItem('token', body.token);
 	})
 	.catch((error) => {
 	    data.error = true;
